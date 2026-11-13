@@ -19,7 +19,7 @@
             { type: 'command', prompt: '<span class="local-user">guest@local</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'ssh eledu@core', delay: 400 },
             { type: 'password', prompt: '<span class="auth-prompt">eledu@core\'s password: </span>', text: '********', delay: 500 },
             { type: 'command', prompt: '<span class="root-user">root@core</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'sudo su', delay: 600 },
-            { type: 'root-banner', delay: 300 }
+            { type: 'prompt-final', prompt: '<span class="root-user">root@core</span>:<span class="path">~</span><span class="prompt">#</span> ', delay: 300 }
         ];
 
         function sleep(ms) {
@@ -55,14 +55,8 @@
                     await typeText(span, step.text, step.type === 'password' ? 70 : 50);
                     await sleep(step.delay);
                     cursor.remove();
-                } else if (step.type === 'root-banner') {
-                    line.innerHTML = `<span class="output">eledu</span>`;
-                    await sleep(step.delay);
-
-                    const finalLine = document.createElement('div');
-                    finalLine.className = 'line cursor-line';
-                    finalLine.innerHTML = `<span class="root-user">root@core</span>:<span class="path">~</span><span class="prompt">#</span> <span class="cursor">_</span>`;
-                    terminal.appendChild(finalLine);
+                } else if (step.type === 'prompt-final') {
+                    line.innerHTML = step.prompt + '<span class="cursor">_</span>';
                 }
             }
         }
