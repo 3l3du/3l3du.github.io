@@ -41,13 +41,8 @@ body::before {
     font-weight: 500;
 }
 
-.normal-user {
-    color: #9ece6a;
-    font-weight: 700;
-}
-
 .root-user {
-    color: #f7768e;
+    color: #f7768e; /* Rojo coral elegante para eledu como root */
     font-weight: 700;
 }
 
@@ -57,6 +52,12 @@ body::before {
 
 .prompt {
     color: #bb9af7;
+    font-weight: 700;
+    margin-right: 0.6rem;
+}
+
+.prompt-root {
+    color: #f7768e;
     font-weight: 700;
     margin-right: 0.6rem;
 }
