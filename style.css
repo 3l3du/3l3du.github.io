@@ -31,7 +31,7 @@ body::before {
     letter-spacing: 0.03em;
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 0.8rem;
     width: 100%;
     max-width: 900px;
 }
@@ -42,12 +42,12 @@ body::before {
 }
 
 .normal-user {
-    color: #9ece6a; /* Verde moderno para eledu usuario estándar */
+    color: #9ece6a; /* Verde elegante para el usuario eledu */
     font-weight: 700;
 }
 
 .root-user {
-    color: #f7768e; /* Rojo coral moderno para root */
+    color: #f7768e; /* Rojo coral para root */
     font-weight: 700;
 }
 
@@ -70,6 +70,12 @@ body::before {
     font-size: 1.05rem;
 }
 
+.system-info {
+    color: #565f89;
+    font-size: 0.95rem;
+    margin: 0.1rem 0;
+}
+
 .cursor {
     display: inline-block;
     background-color: #7dcfff;
@@ -87,7 +93,7 @@ body::before {
 
 @media (max-width: 600px) {
     body { padding: 1.2rem; }
-    .terminal { font-size: 0.85rem; gap: 0.6rem; }
-    .auth-prompt { font-size: 0.8rem; }
+    .terminal { font-size: 0.85rem; gap: 0.5rem; }
+    .auth-prompt, .system-info { font-size: 0.75rem; }
     .cursor { width: 6px; height: 1rem; }
 }
