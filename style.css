@@ -42,12 +42,12 @@ body::before {
 }
 
 .normal-user {
-    color: #9ece6a; /* Verde elegante para el usuario eledu */
+    color: #9ece6a;
     font-weight: 700;
 }
 
 .root-user {
-    color: #f7768e; /* Rojo coral para root */
+    color: #f7768e;
     font-weight: 700;
 }
 
