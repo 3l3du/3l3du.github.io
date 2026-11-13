@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>root@core:~# eledu</title>
+    <title>eledu@core:~#</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,8 +59,7 @@
                 { type: 'command', prompt: '<span class="host-dim">guest@local</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'ssh eledu@core', delay: 300 },
                 { type: 'password', prompt: '<span class="auth-prompt">eledu@core\'s password: </span>', text: '********', delay: 350 },
                 { type: 'system', text: `Last login: ${timestamp} from ${visitorIP}`, delay: 250 },
-                { type: 'command', prompt: '<span class="normal-user">eledu@core</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'sudo su', delay: 400 },
-                { type: 'prompt-final', prompt: '<span class="root-user">root@core</span>:<span class="path">~</span><span class="prompt">#</span> ', delay: 200 }
+                { type: 'prompt-final', prompt: '<span class="root-user">eledu@core</span>:<span class="path">~</span><span class="prompt-root">#</span> ', delay: 200 }
             ];
 
             await sleep(200);
