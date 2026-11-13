@@ -3,20 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eLedU</title>
+    <title>root@core:~# eledu</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="terminal">
-        <div class="line">
-            <span class="user">root@eledu</span>:<span class="path">~</span><span class="prompt">#</span> <span class="output">eLedU</span>
-        </div>
-        <div class="line cursor-line">
-            <span class="user">root@eledu</span>:<span class="path">~</span><span class="prompt">#</span> <span class="cursor">_</span>
-        </div>
-    </div>
+    <div class="terminal" id="terminal"></div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+
+        const sequence = [
+            { type: 'command', prompt: '<span class="local-user">guest@local</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'ssh eledu@core', delay: 400 },
+            { type: 'password', prompt: '<span class="auth-prompt">eledu@core\'s password: </span>', text: '********', delay: 500 },
+            { type: 'command', prompt: '<span class="root-user">root@core</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'sudo su', delay: 600 },
+            { type: 'root-banner', delay: 300 }
+        ];
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function typeText(element, text, speed = 55) {
+            for (let i = 0; i < text.length; i++) {
+                element.textContent += text[i];
+                await sleep(speed + Math.random() * 30);
+            }
+        }
+
+        async function runTerminal() {
+            await sleep(300);
+
+            for (const step of sequence) {
+                const line = document.createElement('div');
+                line.className = 'line';
+                terminal.appendChild(line);
+
+                if (step.type === 'command' || step.type === 'password') {
+                    line.innerHTML = step.prompt;
+                    const span = document.createElement('span');
+                    span.className = step.type === 'command' ? 'command' : 'auth-prompt';
+                    const cursor = document.createElement('span');
+                    cursor.className = 'cursor';
+                    cursor.textContent = '_';
+
+                    line.appendChild(span);
+                    line.appendChild(cursor);
+
+                    await typeText(span, step.text, step.type === 'password' ? 70 : 50);
+                    await sleep(step.delay);
+                    cursor.remove();
+                } else if (step.type === 'root-banner') {
+                    line.innerHTML = `<span class="output">eledu</span>`;
+                    await sleep(step.delay);
+
+                    const finalLine = document.createElement('div');
+                    finalLine.className = 'line cursor-line';
+                    finalLine.innerHTML = `<span class="root-user">root@core</span>:<span class="path">~</span><span class="prompt">#</span> <span class="cursor">_</span>`;
+                    terminal.appendChild(finalLine);
+                }
+            }
+        }
+
+        runTerminal();
+    </script>
 </body>
 </html>
