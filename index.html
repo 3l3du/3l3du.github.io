@@ -3,96 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3l3du@linux:~$</title>
+    <title>eLedU</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background-glow"></div>
-
-    <header class="top-bar">
-        <div class="bar-left">
-            <span class="status-dot"></span>
-            <span class="mono">3l3du@github.io</span>
+    <div class="terminal">
+        <div class="line">
+            <span class="prompt">$</span> <span class="command">whoami</span>
         </div>
-        <div class="bar-center mono">~/web/portfolio</div>
-        <div class="bar-right mono">UTF-8 • HTTPS</div>
-    </header>
-
-    <main class="container">
-        <section class="terminal-window">
-            <div class="window-header">
-                <div class="window-controls">
-                    <span class="control close"></span>
-                    <span class="control minimize"></span>
-                    <span class="control maximize"></span>
-                </div>
-                <span class="window-title mono">bash — 3l3du@arch-gnome: ~</span>
-            </div>
-
-            <div class="window-body">
-                <div class="prompt-line mono">
-                    <span class="user">3l3du@linux</span>:<span class="path">~</span>$ <span class="cmd">neofetch --profile</span>
-                </div>
-
-                <div class="hero-content">
-                    <h1>Hola, soy <span class="accent">3l3du</span></h1>
-                    <p class="subtitle">Bienvenido a mi espacio digital. Alojado en GitHub Pages con estética Linux moderna.</p>
-                    
-                    <div class="specs-grid mono">
-                        <div class="spec-item">
-                            <span class="spec-label">OS:</span>
-                            <span class="spec-value">Linux / Open Source</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Host:</span>
-                            <span class="spec-value">3l3du.github.io</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Shell:</span>
-                            <span class="spec-value">HTML5 + CSS3</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Status:</span>
-                            <span class="spec-value online">● Online</span>
-                        </div>
-                    </div>
-
-                    <div class="actions">
-                        <a href="https://github.com/3l3du" target="_blank" class="btn-primary mono">
-                            <span>&gt;_</span> GitHub Profile
-                        </a>
-                        <a href="#proyectos" class="btn-secondary mono">
-                            ls ./proyectos
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="proyectos" class="cards-grid">
-            <article class="card">
-                <div class="card-header mono">
-                    <span class="folder-icon">📁</span> ~/infraestructura
-                </div>
-                <h3>Sistemas & Redes</h3>
-                <p>Administración de servidores, automatización, virtualización y despliegue de servicios.</p>
-            </article>
-
-            <article class="card">
-                <div class="card-header mono">
-                    <span class="folder-icon">⚡</span> ~/laboratorio
-                </div>
-                <h3>Proyectos Web</h3>
-                <p>Pruebas de concepto, documentación técnica y herramientas desplegadas en la nube.</p>
-            </article>
-        </section>
-    </main>
-
-    <footer class="mono">
-        <p>[0] 3l3du@github.io • Powered by GitHub Pages • 2026</p>
-    </footer>
+        <div class="output glitch" data-text="eLedU">eLedU</div>
+        <div class="line second-line">
+            <span class="prompt">$</span> <span class="cursor">_</span>
+        </div>
+    </div>
 </body>
 </html>
