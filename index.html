@@ -15,26 +15,47 @@
     <script>
         const terminal = document.getElementById('terminal');
 
-        const sequence = [
-            { type: 'command', prompt: '<span class="host-dim">guest@local</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'ssh eledu@core', delay: 350 },
-            { type: 'password', prompt: '<span class="auth-prompt">eledu@core\'s password: </span>', text: '********', delay: 400 },
-            { type: 'system', text: 'Last login: Fri Nov 13 10:54:02 2026 from 192.168.1.50', delay: 300 },
-            { type: 'command', prompt: '<span class="normal-user">eledu@core</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'sudo su', delay: 500 },
-            { type: 'prompt-final', prompt: '<span class="root-user">root@core</span>:<span class="path">~</span><span class="prompt">#</span> ', delay: 300 }
-        ];
-
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
-        async function typeText(element, text, speed = 45) {
-            for (let i = 0; i < text.length; i++) {
-                element.textContent += text[i];
-                await sleep(speed + Math.random() * 20);
+        // Función para obtener la IP real del visitante
+        async function getVisitorIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                return '192.168.1.50'; // IP de respaldo si falla la red
             }
         }
 
+        // Función para formatear la fecha y hora al estilo Linux (ej: Fri Nov 13 10:58:00 2026)
+        function getLinuxTimestamp() {
+            const now = new Date();
+            const options = { 
+                weekday: 'short', 
+                month: 'short', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                year: 'numeric',
+                hour12: false 
+            };
+            // Retorna un string formateado similar al comando 'date' de Linux
+            return now.toLocaleString('en-US', options).replace(/,/g, '');
+        }
+
         async function runTerminal() {
+            // Obtenemos la IP real y la hora exacta del cliente en vivo
+            const visitorIP = await getVisitorIP();
+            const timestamp = getLinuxTimestamp();
+
+            const sequence = [
+                { type: 'command', prompt: '<span class="host-dim">guest@local</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'ssh eledu@core', delay: 350 },
+                { type: 'password', prompt: '<span class="auth-prompt">eledu@core\'s password: </span>', text: '********', delay: 400 },
+                { type: 'system', text: `Last login: ${timestamp} from ${visitorIP}`, delay: 300 },
+                { type: 'command', prompt: '<span class="normal-user">eledu@core</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'sudo su', delay: 500 },
+                { type: 'prompt-final', prompt: '<span class="root-user">root@core</span>:<span class="path">~</span><span class="prompt">#</span> ', delay: 300 }
+            ];
+
             await sleep(300);
 
             for (const step of sequence) {
@@ -53,20 +74,4 @@
                     line.appendChild(span);
                     line.appendChild(cursor);
 
-                    await typeText(span, step.text, step.type === 'password' ? 50 : 40);
-                    await sleep(step.delay);
-                    cursor.remove();
-                } else if (step.type === 'system') {
-                    line.className = 'line system-info';
-                    line.textContent = step.text;
-                    await sleep(step.delay);
-                } else if (step.type === 'prompt-final') {
-                    line.innerHTML = step.prompt + '<span class="cursor">_</span>';
-                }
-            }
-        }
-
-        runTerminal();
-    </script>
-</body>
-</html>
+                    await typeText(span, step.text, step.type === 'password' ?
