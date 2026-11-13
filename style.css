@@ -5,8 +5,8 @@
 }
 
 body {
-    background-color: #1a1b26; /* Fondo oscuro moderno y suave tipo Tokyo Night */
-    color: #a9b1d6; /* Texto base claro y limpio */
+    background-color: #1a1b26;
+    color: #a9b1d6;
     font-family: 'JetBrains Mono', monospace;
     height: 100vh;
     display: flex;
@@ -16,7 +16,6 @@ body {
     padding: 2.5rem;
 }
 
-/* Efecto de viñeta sutil en los bordes */
 body::before {
     content: " ";
     display: block;
@@ -38,37 +37,42 @@ body::before {
 }
 
 .host-dim {
-    color: #7aa2f7; /* Azul moderno */
+    color: #7aa2f7;
     font-weight: 500;
 }
 
+.normal-user {
+    color: #9ece6a; /* Verde moderno para eledu usuario estándar */
+    font-weight: 700;
+}
+
 .root-user {
-    color: #f7768e; /* Rojo coral moderno / magenta suave para root */
+    color: #f7768e; /* Rojo coral moderno para root */
     font-weight: 700;
 }
 
 .path {
-    color: #7dcfff; /* Cian brillante y elegante para las rutas */
+    color: #7dcfff;
 }
 
 .prompt {
-    color: #bb9af7; /* Morado suave para el símbolo de terminal */
+    color: #bb9af7;
     font-weight: 700;
     margin-right: 0.6rem;
 }
 
 .command {
-    color: #c0caf5; /* Texto del comando escrito en blanco claro */
+    color: #c0caf5;
 }
 
 .auth-prompt {
-    color: #565f89; /* Gris sutil moderno para la contraseña */
+    color: #565f89;
     font-size: 1.05rem;
 }
 
 .cursor {
     display: inline-block;
-    background-color: #7dcfff; /* Cursor en cian moderno */
+    background-color: #7dcfff;
     color: transparent;
     width: 9px;
     height: 1.25rem;
