@@ -49,38 +49,6 @@
             }
         }
 
-        function openNanoEditor() {
-            terminal.innerHTML = `
-                <div class="nano-window">
-                    <div class="nano-header">
-                        <span>GNU nano 7.2</span>
-                        <span>info.txt</span>
-                        <span></span>
-                    </div>
-                    <div class="nano-body">
-                        <div class="nano-line">Autor: Eduardo A. Fernández<span class="cursor">_</span></div>
-                    </div>
-                    <div class="nano-footer">
-                        <div class="nano-status">[ Read 1 line ]</div>
-                        <div class="nano-shortcuts">
-                            <span><b>^G</b> Help</span>
-                            <span><b>^O</b> Write Out</span>
-                            <span><b>^W</b> Where Is</span>
-                            <span><b>^K</b> Cut</span>
-                            <span><b>^T</b> Execute</span>
-                            <span><b>^C</b> Location</span>
-                            <span><b>^X</b> Exit</span>
-                            <span><b>^R</b> Read File</span>
-                            <span><b>^\</b> Replace</span>
-                            <span><b>^U</b> Paste</span>
-                            <span><b>^J</b> Justify</span>
-                            <span><b>^/</b> Go To Line</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
         async function runTerminal() {
             const visitorIP = getSimulatedIP();
             const timestamp = getLinuxTimestamp();
@@ -89,18 +57,18 @@
                 { type: 'command', prompt: '<span class="host-dim">guest@local</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'ssh eledu@core', delay: 300 },
                 { type: 'password', prompt: '<span class="auth-prompt">eledu@core\'s password: </span>', text: '********', delay: 350 },
                 { type: 'system', text: `Last login: ${timestamp} from ${visitorIP}`, delay: 350 },
-                { type: 'command', prompt: '<span class="root-user">eledu@core</span>:<span class="path">~</span><span class="prompt-root">#</span> ', text: 'nano info.txt', delay: 500 },
-                { type: 'nano' }
+                { type: 'command', prompt: '<span class="root-user">eledu@core</span>:<span class="path">~</span><span class="prompt-root">#</span> ', text: 'cat info.txt', delay: 400 },
+                { 
+                    type: 'output-html', 
+                    html: 'Eduardo A. Fernández &nbsp;<span class="separator">|</span>&nbsp; <a href="https://www.linkedin.com/in/eduardo-fernandez-it" target="_blank" rel="noopener noreferrer" class="terminal-link">linkedin.com/in/eduardo-fernandez-it</a>', 
+                    delay: 300 
+                },
+                { type: 'prompt-final', prompt: '<span class="root-user">eledu@core</span>:<span class="path">~</span><span class="prompt-root">#</span> ', delay: 200 }
             ];
 
             await sleep(200);
 
             for (const step of sequence) {
-                if (step.type === 'nano') {
-                    openNanoEditor();
-                    break;
-                }
-
                 const line = document.createElement('div');
                 line.className = 'line';
                 terminal.appendChild(line);
@@ -123,11 +91,9 @@
                     line.className = 'line system-info';
                     line.textContent = step.text;
                     await sleep(step.delay);
-                }
-            }
-        }
-
-        runTerminal();
-    </script>
-</body>
-</html>
+                } else if (step.type === 'output-html') {
+                    line.className = 'line file-output';
+                    line.innerHTML = step.html;
+                    await sleep(step.delay);
+                } else if (step.type === 'prompt-final') {
+                    line.innerHTML = step.prompt + '<span class="cursor">_</span>
