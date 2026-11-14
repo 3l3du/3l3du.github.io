@@ -96,4 +96,12 @@
                     line.innerHTML = step.html;
                     await sleep(step.delay);
                 } else if (step.type === 'prompt-final') {
-                    line.innerHTML = step.prompt + '<span class="cursor">_</span>
+                    line.innerHTML = step.prompt + '<span class="cursor">_</span>';
+                }
+            }
+        }
+
+        runTerminal();
+    </script>
+</body>
+</html>
