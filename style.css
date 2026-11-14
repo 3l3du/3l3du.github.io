@@ -77,6 +77,28 @@ body::before {
     margin: 0.1rem 0;
 }
 
+.file-output {
+    color: #c0caf5;
+    font-size: 1.05rem;
+    margin: 0.2rem 0;
+}
+
+.separator {
+    color: #565f89;
+}
+
+.terminal-link {
+    color: #7dcfff;
+    text-decoration: none;
+    border-bottom: 1px dashed #7dcfff;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.terminal-link:hover {
+    color: #9ece6a;
+    border-bottom-color: #9ece6a;
+}
+
 .cursor {
     display: inline-block;
     background-color: #7dcfff;
@@ -87,86 +109,14 @@ body::before {
     animation: blink 1s infinite;
 }
 
-/* Estilos de interfaz GNU nano */
-.nano-window {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 75vh;
-    width: 100%;
-    border: 1px solid #292e42;
-    background-color: #16161e;
-    animation: fadeIn 0.25s ease-out;
-}
-
-.nano-header {
-    background-color: #c0caf5;
-    color: #1a1b26;
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 0.25rem 0.8rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.nano-body {
-    flex: 1;
-    padding: 1rem 0.8rem;
-    color: #c0caf5;
-}
-
-.nano-footer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    padding: 0.4rem 0.8rem;
-}
-
-.nano-status {
-    align-self: center;
-    background-color: #c0caf5;
-    color: #1a1b26;
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 0.1rem 0.6rem;
-}
-
-.nano-shortcuts {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 0.3rem 0.6rem;
-    font-size: 0.78rem;
-    color: #a9b1d6;
-}
-
-.nano-shortcuts b {
-    background-color: #c0caf5;
-    color: #1a1b26;
-    padding: 0 0.25rem;
-    margin-right: 0.2rem;
-}
-
 @keyframes blink {
     0%, 50% { opacity: 1; }
     50.1%, 100% { opacity: 0; }
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@media (max-width: 768px) {
-    .nano-shortcuts {
-        grid-template-columns: repeat(3, 1fr);
-        font-size: 0.7rem;
-    }
-}
-
 @media (max-width: 600px) {
     body { padding: 1.5rem 1rem; }
     .terminal { font-size: 0.85rem; gap: 0.5rem; }
-    .auth-prompt, .system-info { font-size: 0.75rem; }
+    .auth-prompt, .system-info, .file-output { font-size: 0.75rem; }
     .cursor { width: 6px; height: 1rem; }
-    .nano-header { font-size: 0.8rem; }
 }
