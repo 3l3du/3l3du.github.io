@@ -42,10 +42,11 @@
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        async function typeText(element, text, speed = 40) {
+        // Tipeo más lento y natural (base de 75ms por carácter)
+        async function typeText(element, text, speed = 75) {
             for (let i = 0; i < text.length; i++) {
                 element.textContent += text[i];
-                await sleep(speed + Math.random() * 15);
+                await sleep(speed + Math.random() * 30);
             }
         }
 
@@ -54,54 +55,25 @@
             const timestamp = getLinuxTimestamp();
 
             const sequence = [
-                { type: 'command', prompt: '<span class="host-dim">guest@local</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'ssh eledu@core', delay: 300 },
-                { type: 'password', prompt: '<span class="auth-prompt">eledu@core\'s password: </span>', text: '********', delay: 350 },
-                { type: 'system', text: `Last login: ${timestamp} from ${visitorIP}`, delay: 350 },
-                { type: 'command', prompt: '<span class="root-user">eledu@core</span>:<span class="path">~</span><span class="prompt-root">#</span> ', text: 'cat info.txt', delay: 400 },
+                { type: 'command', prompt: '<span class="host-dim">guest@local</span>:<span class="path">~</span><span class="prompt">$</span> ', text: 'ssh eledu@core', delay: 600 },
+                { type: 'password', prompt: '<span class="auth-prompt">eledu@core\'s password: </span>', text: '********', delay: 700 },
+                { type: 'system', text: `Last login: ${timestamp} from ${visitorIP}`, delay: 500 },
+                { type: 'command', prompt: '<span class="root-user">eledu@core</span>:<span class="path">~</span><span class="prompt-root">#</span> ', text: 'ls -la', delay: 600 },
                 { 
                     type: 'output-html', 
-                    html: 'Eduardo A. Fernández &nbsp;<span class="separator">|</span>&nbsp; <a href="https://www.linkedin.com/in/eduardo-fernandez-it" target="_blank" rel="noopener noreferrer" class="terminal-link">linkedin.com/in/eduardo-fernandez-it</a>', 
-                    delay: 300 
+                    html: `<pre class="ls-table">total 44
+drwx------  6 root root 4096 Nov 15 12:30 <span class="dir">.</span>
+drwxr-xr-x 20 root root 4096 Oct 12 09:15 <span class="dir">..</span>
+-rw-------  1 root root 1842 Nov 14 18:22 .bash_history
+-rw-r--r--  1 root root 3106 Oct 12 09:15 .bashrc
+drwxr-xr-x  2 root root 4096 Nov 02 14:10 <span class="dir">backups</span>
+-rwxr-xr-x  1 root root  845 Nov 10 11:05 <span class="exec">deploy.sh</span>
+-rw-r--r--  1 root root   64 Nov 15 12:28 <span class="file">info.txt</span>
+-rw-r--r--  1 root root  161 Oct 12 09:15 .profile
+drwx------  2 root root 4096 Oct 12 09:18 <span class="dir">.ssh</span></pre>`, 
+                    delay: 700 
                 },
-                { type: 'prompt-final', prompt: '<span class="root-user">eledu@core</span>:<span class="path">~</span><span class="prompt-root">#</span> ', delay: 200 }
-            ];
-
-            await sleep(200);
-
-            for (const step of sequence) {
-                const line = document.createElement('div');
-                line.className = 'line';
-                terminal.appendChild(line);
-
-                if (step.type === 'command' || step.type === 'password') {
-                    line.innerHTML = step.prompt;
-                    const span = document.createElement('span');
-                    span.className = step.type === 'command' ? 'command' : 'auth-prompt';
-                    const cursor = document.createElement('span');
-                    cursor.className = 'cursor';
-                    cursor.textContent = '_';
-
-                    line.appendChild(span);
-                    line.appendChild(cursor);
-
-                    await typeText(span, step.text, step.type === 'password' ? 45 : 40);
-                    await sleep(step.delay);
-                    cursor.remove();
-                } else if (step.type === 'system') {
-                    line.className = 'line system-info';
-                    line.textContent = step.text;
-                    await sleep(step.delay);
-                } else if (step.type === 'output-html') {
-                    line.className = 'line file-output';
-                    line.innerHTML = step.html;
-                    await sleep(step.delay);
-                } else if (step.type === 'prompt-final') {
-                    line.innerHTML = step.prompt + '<span class="cursor">_</span>';
-                }
-            }
-        }
-
-        runTerminal();
-    </script>
-</body>
-</html>
+                { type: 'command', prompt: '<span class="root-user">eledu@core</span>:<span class="path">~</span><span class="prompt-root">#</span> ', text: 'cat info.txt', delay: 600 },
+                { 
+                    type: 'output-html', 
+                    html: 'Eduardo A. Fernández &nbsp;<span class="separator">|</span>&nbsp; <a href="
