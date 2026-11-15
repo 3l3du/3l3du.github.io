@@ -76,4 +76,48 @@ drwx------  2 root root 4096 Oct 12 09:18 <span class="dir">.ssh</span></pre>`,
                 { type: 'command', prompt: '<span class="root-user">eledu@core</span>:<span class="path">~</span><span class="prompt-root">#</span> ', text: 'cat info.txt', delay: 600 },
                 { 
                     type: 'output-html', 
-                    html: 'Eduardo A. Fernández &nbsp;<span class="separator">|</span>&nbsp; <a href="
+                    html: 'Eduardo A. Fernández &nbsp;<span class="separator">|</span>&nbsp; <a href="https://www.linkedin.com/in/eduardo-fernandez-it" target="_blank" rel="noopener noreferrer" class="terminal-link">linkedin.com/in/eduardo-fernandez-it</a>', 
+                    delay: 500 
+                },
+                { type: 'prompt-final', prompt: '<span class="root-user">eledu@core</span>:<span class="path">~</span><span class="prompt-root">#</span> ', delay: 300 }
+            ];
+
+            await sleep(300);
+
+            for (const step of sequence) {
+                const line = document.createElement('div');
+                line.className = 'line';
+                terminal.appendChild(line);
+
+                if (step.type === 'command' || step.type === 'password') {
+                    line.innerHTML = step.prompt;
+                    const span = document.createElement('span');
+                    span.className = step.type === 'command' ? 'command' : 'auth-prompt';
+                    const cursor = document.createElement('span');
+                    cursor.className = 'cursor';
+                    cursor.textContent = '_';
+
+                    line.appendChild(span);
+                    line.appendChild(cursor);
+
+                    await typeText(span, step.text, step.type === 'password' ? 80 : 75);
+                    await sleep(step.delay);
+                    cursor.remove();
+                } else if (step.type === 'system') {
+                    line.className = 'line system-info';
+                    line.textContent = step.text;
+                    await sleep(step.delay);
+                } else if (step.type === 'output-html') {
+                    line.className = 'line file-output';
+                    line.innerHTML = step.html;
+                    await sleep(step.delay);
+                } else if (step.type === 'prompt-final') {
+                    line.innerHTML = step.prompt + '<span class="cursor">_</span>';
+                }
+            }
+        }
+
+        runTerminal();
+    </script>
+</body>
+</html>
